@@ -2,7 +2,7 @@ package Bit4You.Client.Models.Market.Response;
 
 import com.google.gson.annotations.SerializedName;
 
-public class MarketSummrie {
+public class MarketSummrieResponse {
 
     @SerializedName("market")
     private String Market ;

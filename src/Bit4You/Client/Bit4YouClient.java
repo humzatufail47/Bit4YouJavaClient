@@ -5,17 +5,14 @@ import Bit4You.Client.Models.Market.Request.MarketListResponse;
 import Bit4You.Client.Models.Market.Request.MarketOrderBook;
 import Bit4You.Client.Models.Market.Request.MarketTicks;
 import Bit4You.Client.Models.Market.Response.MarketOrderBookResponse;
-import Bit4You.Client.Models.Market.Response.MarketSummrie;
+import Bit4You.Client.Models.Market.Response.MarketSummrieResponse;
 import Bit4You.Client.Models.Market.Response.MarketTicksResponse;
 import Bit4You.Client.Models.OAuthRequest;
 import Bit4You.Client.Models.OAuthResult;
 import Bit4You.Client.Models.Orders.Request.*;
-import Bit4You.Client.Models.Orders.Response.CancelOrderResponse;
-import Bit4You.Client.Models.Orders.Response.OrderInfoResponse;
-import Bit4You.Client.Models.Orders.Response.OrderListResponse;
-import Bit4You.Client.Models.Orders.Response.OrderPendingResponse;
-import Bit4You.Client.Models.Portfolio.Request.CancelPortfolioOrder;
-import Bit4You.Client.Models.Portfolio.Request.ClosePortfolioPosition;
+import Bit4You.Client.Models.Orders.Response.*;
+import Bit4You.Client.Models.Portfolio.Request.PortfolioCancelOrder;
+import Bit4You.Client.Models.Portfolio.Request.PortfolioClosePosition;
 import Bit4You.Client.Models.Portfolio.Request.PortfolioCreateOrder;
 import Bit4You.Client.Models.Portfolio.Response.*;
 import Bit4You.Client.Models.Simulations;
@@ -120,7 +117,7 @@ public class Bit4YouClient {
             if (result.isSuccessful()) {
                 //Throw 401
             }
-            System.out.println("Need to Look at it: WalletWithdrawFunds");
+            System.out.println("Need to Look at it: WalletWithdrawFunds"+ result.errorBody().string());
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -166,22 +163,23 @@ public class Bit4YouClient {
         return null;
     }
 
-    public void OrderCreate(CreateOrder createOrder) {
+    public OrderCreateResponse OrderCreate(OrderCreate orderCreate) {
         var token = GetAccessToken();
         try {
-            Response<Void> result = bit4YouService.OrderCreate("Bearer " + token.getAccessToken(), createOrder).execute();
+            Response<OrderCreateResponse> result = bit4YouService.OrderCreate("Bearer " + token.getAccessToken(), orderCreate).execute();
             if (result.isSuccessful()) {
+                return result.body();
             }
-            System.out.println("Need to Look at it: OrderCreate");
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+        return null;
     }
 
-    public CancelOrderResponse OrderCancel(CancelOrder cancelOrder) {
+    public OrderCancelResponse OrderCancel(OrderCancel orderCancel) {
         var token = GetAccessToken();
         try {
-            Response<CancelOrderResponse> result = bit4YouService.OrderCancel("Bearer " + token.getAccessToken(), cancelOrder).execute();
+            Response<OrderCancelResponse> result = bit4YouService.OrderCancel("Bearer " + token.getAccessToken(), orderCancel).execute();
             if (result.isSuccessful()) {
                 return result.body();
             }
@@ -230,10 +228,10 @@ public class Bit4YouClient {
         return null;
     }
 
-    public CreatePortfolioResponse PortfolioCreateOrder(PortfolioCreateOrder portfolioCreateOrder) {
+    public PortfolioCreateResponse PortfolioCreateOrder(PortfolioCreateOrder portfolioCreateOrder) {
         var token = GetAccessToken();
         try {
-            Response<CreatePortfolioResponse> result = bit4YouService.PortfolioCreateOrder("Bearer " + token.getAccessToken(), portfolioCreateOrder).execute();
+            Response<PortfolioCreateResponse> result = bit4YouService.PortfolioCreateOrder("Bearer " + token.getAccessToken(), portfolioCreateOrder).execute();
             if (result.isSuccessful()) {
                 return result.body();
             }
@@ -243,10 +241,10 @@ public class Bit4YouClient {
         return null;
     }
 
-    public CancelPortfolioResponse PortfolioCancelOrder(CancelPortfolioOrder cancelPortfolioOrder) {
+    public PortfolioCancelResponse PortfolioCancelOrder(PortfolioCancelOrder portfolioCancelOrder) {
         var token = GetAccessToken();
         try {
-            Response<CancelPortfolioResponse> result = bit4YouService.PortfolioCancelOrder("Bearer " + token.getAccessToken(), cancelPortfolioOrder).execute();
+            Response<PortfolioCancelResponse> result = bit4YouService.PortfolioCancelOrder("Bearer " + token.getAccessToken(), portfolioCancelOrder).execute();
             if (result.isSuccessful()) {
                 return result.body();
             }
@@ -256,7 +254,7 @@ public class Bit4YouClient {
         return null;
     }
 
-    public CancelPortfolioResponse PortfolioCloseOrder(ClosePortfolioPosition closePosition) {
+    public PortfolioCancelResponse PortfolioCloseOrder(PortfolioClosePosition closePosition) {
         var token = GetAccessToken();
         try {
             Response<Void> result = bit4YouService.PortfolioCloseOrder("Bearer " + token.getAccessToken(), closePosition).execute();
@@ -283,10 +281,10 @@ public class Bit4YouClient {
         return null;
     }
 
-    public List<MarketSummrie> MarketSummaries() {
+    public List<MarketSummrieResponse> MarketSummaries() {
         var token = GetAccessToken();
         try {
-            Response<List<MarketSummrie>> result = bit4YouService.MarketSummaries().execute();
+            Response<List<MarketSummrieResponse>> result = bit4YouService.MarketSummaries().execute();
             if (result.isSuccessful()) {
                 return result.body();
             }
