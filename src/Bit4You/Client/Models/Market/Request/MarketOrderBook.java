@@ -9,6 +9,26 @@ public class MarketOrderBook {
     private int Limit;
     @SerializedName("state")
     private boolean State;
+    @SerializedName("ClientId")
+    protected String ClientId;
+    @SerializedName("TimingForce")
+    protected String TimingForce;
+
+    public String getClientId() {
+        return ClientId;
+    }
+
+    public void setClientId(String clientId) {
+        ClientId = clientId;
+    }
+
+    public String getTimingForce() {
+        return TimingForce;
+    }
+
+    public void setTimingForce(String timingForce) {
+        TimingForce = timingForce;
+    }
 
     public void setMarket(String market) {
         Market = market;

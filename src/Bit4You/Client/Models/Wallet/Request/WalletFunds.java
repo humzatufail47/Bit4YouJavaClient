@@ -11,6 +11,11 @@ public class WalletFunds {
     @SerializedName("address")
     private String Address;
 
+    @SerializedName("ClientId")
+    protected String ClientId;
+    @SerializedName("TimingForce")
+    protected String TimingForce;
+
 
     public void setIso(String iso) {
         Iso = iso;
@@ -34,5 +39,21 @@ public class WalletFunds {
 
     public String getAddress() {
         return Address;
+    }
+
+    public String getClientId() {
+        return ClientId;
+    }
+
+    public void setClientId(String clientId) {
+        ClientId = clientId;
+    }
+
+    public String getTimingForce() {
+        return TimingForce;
+    }
+
+    public void setTimingForce(String timingForce) {
+        TimingForce = timingForce;
     }
 }

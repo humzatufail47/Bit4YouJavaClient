@@ -47,6 +47,8 @@ public class Main {
         //WalletBalance
         var simulation = new Simulations();
         simulation.setSimulation(true);
+        //simulation.setClientId("");
+        //simulation.setTimingForce("");
         var walletBalanceResponses = bit4YouClient.WalletBalance(simulation);
         System.out.println("-----------------Printing Wallet Balance object--------------------");
         System.out.println(mapper.writeValueAsString(walletBalanceResponses));
@@ -55,6 +57,8 @@ public class Main {
         var transaction = new WalletTransaction();
         transaction.setSimulation(true);
         transaction.setIso("BTC");
+        //transaction.setClientId("");
+        //transaction.setTimingForce("");
         var walletTransactionResponse = bit4YouClient.WalletTransaction(transaction);
         System.out.println("-----------------Printing Wallet Transaction object--------------------");
         System.out.println(mapper.writeValueAsString(walletTransactionResponse));
@@ -64,6 +68,8 @@ public class Main {
         funds.setIso("BTC");
         funds.setAddress("1CK6KHY6MHgYvmRQ4PAafKYDrg1eaaaaaa");
         funds.setQuantity(1.05);
+        //funds.setClientId("");
+        //funds.setTimingForce("");
         System.out.println("-----------------Printing Wallet Funds object--------------------");
         bit4YouClient.WalletWithdrawFunds(funds);
 
@@ -75,6 +81,8 @@ public class Main {
         orderList.setLimit(10);
         orderList.setMarket("USDT-BTC");
         orderList.setPage(0);
+        //orderList.setClientId("");
+        //orderList.setTimingForce("");
 
         var orderListResponse = bit4YouClient.OrderList(orderList);
         System.out.println("-----------------Printing Order List object--------------------");
@@ -84,6 +92,8 @@ public class Main {
         var orderInfo = new OrderInfo();
         orderInfo.setSimulation(true);
         orderInfo.setTxid("db78faa89f08062bfebeacb51365fadb08b63da6");
+        //orderInfo.setClientId("");
+        //orderInfo.setTimingForce("");
         var orderInfoResponse = bit4YouClient.OrderInfo(orderInfo);
         System.out.println("-----------------Printing Order Info object--------------------");
         System.out.println(mapper.writeValueAsString(orderInfoResponse));
@@ -91,6 +101,8 @@ public class Main {
         //OrderPending
         var pending = new OrderPending();
         pending.setSimulation(true);
+        //pending.setClientId("");
+        //pending.setTimingForce("");
         var orderPendingResponse = bit4YouClient.OrderPending(pending);
         System.out.println("-----------------Printing Order Pending object--------------------");
         System.out.println(mapper.writeValueAsString(orderPendingResponse));
@@ -103,6 +115,9 @@ public class Main {
         order.setRate(1.5);
         order.setType("buy");
         order.setSimulation(true);
+        //order.setClientId("");
+        //order.setTimingForce("");
+
         System.out.println("-----------------Printing order create object--------------------");
         var orderCreateResponse=bit4YouClient.OrderCreate(order);
         System.out.println(mapper.writeValueAsString(orderCreateResponse));
@@ -111,6 +126,8 @@ public class Main {
         var cancelOrder = new OrderCancel();
         cancelOrder.setTxid(orderCreateResponse.getTxid());
         cancelOrder.setSimulation(true);
+        //cancelOrder.setClientId("");
+        //cancelOrder.setTimingForce("");
         var orderCancelResponse = bit4YouClient.OrderCancel(cancelOrder);
         System.out.println("-----------------Printing cancel order  object--------------------");
         System.out.println(mapper.writeValueAsString(orderCancelResponse));
@@ -120,6 +137,8 @@ public class Main {
         //PortfolioSummary
         var pfSimulation = new Simulations();
         pfSimulation.setSimulation(true);
+        //pfSimulation.setClientId("");
+        //pfSimulation.setTimingForce("");
         var PortfolioListSummaryResponse = bit4YouClient.PortfolioSummary(pfSimulation);
         System.out.println("-----------------Printing Portfolio Summary object--------------------");
         System.out.println(mapper.writeValueAsString(PortfolioListSummaryResponse));
@@ -127,6 +146,8 @@ public class Main {
         //PortfolioOpenOrder
         var pfOpenOrderSimulation = new Simulations();
         pfOpenOrderSimulation.setSimulation(true);
+        //pfOpenOrderSimulation.setClientId("");
+        //pfOpenOrderSimulation.setTimingForce("");
         var PortfolioOpenOrderResponse = bit4YouClient.PortfolioOpenOrder(pfOpenOrderSimulation);
         System.out.println("-----------------Printing Portfolio Open Order object--------------------");
         System.out.println(mapper.writeValueAsString(PortfolioOpenOrderResponse));
@@ -134,6 +155,8 @@ public class Main {
         //PortfolioHistory
         var pfHistorySimulation = new Simulations();
         pfHistorySimulation.setSimulation(true);
+        //pfHistorySimulation.setClientId("");
+        //pfHistorySimulation.setTimingForce("");
         var PortfolioHistoryResponse = bit4YouClient.PortfolioHistory(pfHistorySimulation);
         System.out.println("-----------------Printing Portfolio History object--------------------");
         System.out.println(mapper.writeValueAsString(PortfolioHistoryResponse));
@@ -145,6 +168,8 @@ public class Main {
         Porder.setSimulation(true);
         Porder.setQuantity(0.55);
         Porder.setRate(355.36);
+        //Porder.setClientId("");
+        //Porder.setTimingForce("");
         var PortfolioCreateOrderResponse = bit4YouClient.PortfolioCreateOrder(Porder);
         System.out.println("-----------------Printing Portfolio Create Order object--------------------");
         System.out.println(mapper.writeValueAsString(PortfolioCreateOrderResponse));
@@ -153,7 +178,8 @@ public class Main {
         var cancelportOrder = new PortfolioCancelOrder();
         cancelportOrder.setSimulation(true);
         cancelportOrder.setId(1);
-
+        //cancelportOrder.setClientId("");
+        //cancelportOrder.setTimingForce("");
         var PortfolioCancelOrderResponse = bit4YouClient.PortfolioCancelOrder(cancelportOrder);
         System.out.println("-----------------Printing Portfolio Cancel Order object--------------------");
         System.out.println(mapper.writeValueAsString(PortfolioCancelOrderResponse));
@@ -162,6 +188,8 @@ public class Main {
         var closePort = new PortfolioClosePosition();
         closePort.setId(1);
         closePort.setSimulation(true);
+        //closePort.setClientId("");
+        //closePort.setTimingForce("");
         var PortfolioCloseOrderResponse = bit4YouClient.PortfolioCloseOrder(closePort);
         System.out.println("-----------------Printing Portfolio Close Order object--------------------");
         System.out.println(mapper.writeValueAsString(PortfolioCloseOrderResponse));
@@ -183,6 +211,8 @@ public class Main {
         var ticks = new MarketTicks();
         ticks.setMarket("USDT-BTC");
         ticks.setInterval(60);
+        //ticks.setClientId("");
+        //ticks.setTimingForce("");
         var MarketTicksResponse = bit4YouClient.MarketTicks(ticks);
         System.out.println("-----------------Printing Market Ticks object--------------------");
         System.out.println(mapper.writeValueAsString(MarketTicksResponse));
@@ -192,6 +222,8 @@ public class Main {
         orderBook.setMarket("USDT-BTC");
         orderBook.setLimit(50);
         orderBook.setState(true);
+        //orderBook.setClientId("");
+        //orderBook.setTimingForce("");
         var MarketOrderBookResponse = bit4YouClient.MarketOrderBook(orderBook);
         System.out.println("-----------------Printing Market Order Books object--------------------");
         System.out.println(mapper.writeValueAsString(MarketOrderBookResponse));
@@ -202,6 +234,8 @@ public class Main {
         mhistory.setLimit(50);
         mhistory.setFrom("string");
         mhistory.setTo("string");
+        //mhistory.setClientId("");
+        //mhistory.setTimingForce("");
         System.out.println("-----------------Printing Market History object--------------------");
         var resp=bit4YouClient.MarketOrderBook(orderBook);
         System.out.println(mapper.writeValueAsString(resp));

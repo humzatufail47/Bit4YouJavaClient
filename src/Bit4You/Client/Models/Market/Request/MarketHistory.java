@@ -12,6 +12,11 @@ public class MarketHistory {
     @SerializedName("to")
     private String To;
 
+    @SerializedName("ClientId")
+    protected String ClientId;
+    @SerializedName("TimingForce")
+    protected String TimingForce;
+
     public void setMarket(String market) {
         Market = market;
     }
@@ -42,5 +47,21 @@ public class MarketHistory {
 
     public String getTo() {
         return To;
+    }
+
+    public String getClientId() {
+        return ClientId;
+    }
+
+    public void setClientId(String clientId) {
+        ClientId = clientId;
+    }
+
+    public String getTimingForce() {
+        return TimingForce;
+    }
+
+    public void setTimingForce(String timingForce) {
+        TimingForce = timingForce;
     }
 }
