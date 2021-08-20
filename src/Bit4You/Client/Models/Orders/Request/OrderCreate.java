@@ -1,8 +1,9 @@
 package Bit4You.Client.Models.Orders.Request;
 
+import Bit4You.Client.Models.Simulations;
 import com.google.gson.annotations.SerializedName;
 
-public class CreateOrder {
+public class OrderCreate extends Simulations {
     @SerializedName("market")
     private String Market;
         //[System.Text.Json.Serialization.JsonConverter(typeof(StringEnumConverter))]

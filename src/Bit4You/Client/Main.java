@@ -4,8 +4,8 @@ import Bit4You.Client.Models.Market.Request.MarketHistory;
 import Bit4You.Client.Models.Market.Request.MarketOrderBook;
 import Bit4You.Client.Models.Market.Request.MarketTicks;
 import Bit4You.Client.Models.Orders.Request.*;
-import Bit4You.Client.Models.Portfolio.Request.CancelPortfolioOrder;
-import Bit4You.Client.Models.Portfolio.Request.ClosePortfolioPosition;
+import Bit4You.Client.Models.Portfolio.Request.PortfolioCancelOrder;
+import Bit4You.Client.Models.Portfolio.Request.PortfolioClosePosition;
 import Bit4You.Client.Models.Portfolio.Request.PortfolioCreateOrder;
 import Bit4You.Client.Models.Simulations;
 import Bit4You.Client.Models.Wallet.Request.WalletFunds;
@@ -25,7 +25,7 @@ public class Main {
         clientSettings.setClientSecret("af85bfd876f3f0ccc9652205bb48cbd80b2cf556");
         clientSettings.setAccessTokenUrl("https://auth.bit4you.io/");
         clientSettings.setApiUrl("https://www.bit4you.io");
-        clientSettings.setOAuthScopes("openid,wallets:read,portfolio:read,profile");
+        clientSettings.setOAuthScopes("openid,profile,portfolio:read,wallets:read,portfolio:write");
         ObjectMapper mapper = new ObjectMapper();
 
         //Bit Client
@@ -64,7 +64,7 @@ public class Main {
         funds.setIso("BTC");
         funds.setAddress("1CK6KHY6MHgYvmRQ4PAafKYDrg1eaaaaaa");
         funds.setQuantity(1.05);
-        System.out.println("-----------------Printing Wallet Transaction object--------------------");
+        System.out.println("-----------------Printing Wallet Funds object--------------------");
         bit4YouClient.WalletWithdrawFunds(funds);
 
         //Order
@@ -92,22 +92,24 @@ public class Main {
         var pending = new OrderPending();
         pending.setSimulation(true);
         var orderPendingResponse = bit4YouClient.OrderPending(pending);
-        System.out.println("-----------------Printing Order Pendings object--------------------");
+        System.out.println("-----------------Printing Order Pending object--------------------");
         System.out.println(mapper.writeValueAsString(orderPendingResponse));
 
         //Create Order
-        var order = new CreateOrder();
+        var order = new OrderCreate();
         order.setMarket("USDT-BTC");
         order.setQuantity(10);
-        order.setQuantityIso("USDT_BTC");
+        order.setQuantityIso("BTC");
         order.setRate(1.5);
         order.setType("buy");
+        order.setSimulation(true);
         System.out.println("-----------------Printing order create object--------------------");
-        bit4YouClient.OrderCreate(order);
+        var orderCreateResponse=bit4YouClient.OrderCreate(order);
+        System.out.println(mapper.writeValueAsString(orderCreateResponse));
 
         //Cancel order
-        var cancelOrder = new CancelOrder();
-        cancelOrder.setTxid("db78faa89f08062bfebeacb51365fadb08b63da6");
+        var cancelOrder = new OrderCancel();
+        cancelOrder.setTxid(orderCreateResponse.getTxid());
         cancelOrder.setSimulation(true);
         var orderCancelResponse = bit4YouClient.OrderCancel(cancelOrder);
         System.out.println("-----------------Printing cancel order  object--------------------");
@@ -140,6 +142,7 @@ public class Main {
         var Porder = new PortfolioCreateOrder();
         Porder.setMarket("USDT-BTC");
         Porder.setSimulation(true);
+        Porder.setSimulation(true);
         Porder.setQuantity(0.55);
         Porder.setRate(355.36);
         var PortfolioCreateOrderResponse = bit4YouClient.PortfolioCreateOrder(Porder);
@@ -147,7 +150,7 @@ public class Main {
         System.out.println(mapper.writeValueAsString(PortfolioCreateOrderResponse));
 
         //PortfolioCancelOrder
-        var cancelportOrder = new CancelPortfolioOrder();
+        var cancelportOrder = new PortfolioCancelOrder();
         cancelportOrder.setSimulation(true);
         cancelportOrder.setId(1);
 
@@ -156,7 +159,7 @@ public class Main {
         System.out.println(mapper.writeValueAsString(PortfolioCancelOrderResponse));
 
         //PortfolioCloseOrder
-        var closePort = new ClosePortfolioPosition();
+        var closePort = new PortfolioClosePosition();
         closePort.setId(1);
         closePort.setSimulation(true);
         var PortfolioCloseOrderResponse = bit4YouClient.PortfolioCloseOrder(closePort);
@@ -174,7 +177,7 @@ public class Main {
         //MarketSummaries
         var MarketSummariesResponse = bit4YouClient.MarketSummaries();
         System.out.println("-----------------Printing Market Summaries object--------------------");
-        System.out.println(mapper.writeValueAsString(MarketSummariesResponse));
+        System.out.println(mapper.writeValueAsString(MarketSummariesResponse.get(10)));
 
         //MarketTicks
         var ticks = new MarketTicks();
@@ -200,7 +203,8 @@ public class Main {
         mhistory.setFrom("string");
         mhistory.setTo("string");
         System.out.println("-----------------Printing Market History object--------------------");
-        bit4YouClient.MarketOrderBook(orderBook);
+        var resp=bit4YouClient.MarketOrderBook(orderBook);
+        System.out.println(mapper.writeValueAsString(resp));
 
 
     }

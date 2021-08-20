@@ -5,15 +5,12 @@ import Bit4You.Client.Models.Market.Request.MarketListResponse;
 import Bit4You.Client.Models.Market.Request.MarketOrderBook;
 import Bit4You.Client.Models.Market.Request.MarketTicks;
 import Bit4You.Client.Models.Market.Response.MarketOrderBookResponse;
-import Bit4You.Client.Models.Market.Response.MarketSummrie;
+import Bit4You.Client.Models.Market.Response.MarketSummrieResponse;
 import Bit4You.Client.Models.Market.Response.MarketTicksResponse;
 import Bit4You.Client.Models.Orders.Request.*;
-import Bit4You.Client.Models.Orders.Response.CancelOrderResponse;
-import Bit4You.Client.Models.Orders.Response.OrderInfoResponse;
-import Bit4You.Client.Models.Orders.Response.OrderListResponse;
-import Bit4You.Client.Models.Orders.Response.OrderPendingResponse;
-import Bit4You.Client.Models.Portfolio.Request.CancelPortfolioOrder;
-import Bit4You.Client.Models.Portfolio.Request.ClosePortfolioPosition;
+import Bit4You.Client.Models.Orders.Response.*;
+import Bit4You.Client.Models.Portfolio.Request.PortfolioCancelOrder;
+import Bit4You.Client.Models.Portfolio.Request.PortfolioClosePosition;
 import Bit4You.Client.Models.Portfolio.Request.PortfolioCreateOrder;
 import Bit4You.Client.Models.Portfolio.Response.*;
 import Bit4You.Client.Models.Simulations;
@@ -53,13 +50,13 @@ public interface IBit4YouService extends IBaseBit4YouService
     Call<List<PortfolioHistoryResponse>> PortfolioHistory(@Header("Authorization") String authHeader,@Body Simulations simulations);
 
     @POST("/api/portfolio/create-order")
-    Call<CreatePortfolioResponse> PortfolioCreateOrder(@Header("Authorization") String authHeader,@Body PortfolioCreateOrder portfolioCreateOrder);
+    Call<PortfolioCreateResponse> PortfolioCreateOrder(@Header("Authorization") String authHeader,@Body PortfolioCreateOrder portfolioCreateOrder);
 
     @POST("/api/portfolio/cancel-order")
-    Call<CancelPortfolioResponse> PortfolioCancelOrder(@Header("Authorization") String authHeader,@Body CancelPortfolioOrder cancelPortfolioOrder);
+    Call<PortfolioCancelResponse> PortfolioCancelOrder(@Header("Authorization") String authHeader, @Body PortfolioCancelOrder portfolioCancelOrder);
 
     @POST("/api/portfolio/close")
-    Call<Void> PortfolioCloseOrder(@Header("Authorization") String authHeader,@Body ClosePortfolioPosition closePosition);
+    Call<Void> PortfolioCloseOrder(@Header("Authorization") String authHeader,@Body PortfolioClosePosition closePosition);
 
     //Order
     @POST("/api/order/list")
@@ -72,17 +69,17 @@ public interface IBit4YouService extends IBaseBit4YouService
     Call<List<OrderPendingResponse>> OrderPending(@Header("Authorization") String authHeader,@Body OrderPending orderPending);
 
     @POST("/api/order/create")
-    Call<Void> OrderCreate(@Header("Authorization") String authHeader,@Body CreateOrder createOrder);
+    Call<OrderCreateResponse> OrderCreate(@Header("Authorization") String authHeader, @Body OrderCreate orderCreate);
 
     @POST("/api/order/cancel")
-    Call<CancelOrderResponse> OrderCancel(@Header("Authorization") String authHeader,@Body CancelOrder cancelOrder);
+    Call<OrderCancelResponse> OrderCancel(@Header("Authorization") String authHeader, @Body OrderCancel orderCancel);
 
 
     //Market
     @GET("/api/market/list")
     Call<List<MarketListResponse>> MarketList();
     @GET("/api/market/summaries")
-    Call<List<MarketSummrie>> MarketSummaries();
+    Call<List<MarketSummrieResponse>> MarketSummaries();
 
     @POST("/api/market/ticks")
     Call<List<MarketTicksResponse>> MarketTicks(@Body MarketTicks marketTicks);

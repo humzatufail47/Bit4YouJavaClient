@@ -2,7 +2,7 @@ package Bit4You.Client.Models.Portfolio.Response;
 
 import com.google.gson.annotations.SerializedName;
 
-public class CreatePortfolioResponse {
+public class PortfolioCreateResponse {
     @SerializedName("txid")
     private String Txid;
     @SerializedName("type")

@@ -1,8 +1,8 @@
-package Bit4You.Client.Models.Portfolio.Response;
+package Bit4You.Client.Models.Orders.Response;
 
 import com.google.gson.annotations.SerializedName;
 
-public class CancelPortfolioResponse {
+public class OrderCancelResponse {
 
     @SerializedName("status")
     private String Status;
